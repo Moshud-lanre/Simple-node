@@ -17,11 +17,9 @@ before_script:
 script:
   -docker --version
   -docker build -t simple-node .
-  -docker tag simple-node moshud/simple-node:node.v1
+  -docker tag simple-node moshud/simple-node:node.v2
 
   #Tasks to perform after the process is successful. 
   after_success:
     -echo "$DOCKER_PASSWORD" |  docker login -u "$DOCKER_USERNAME"  --password-stdin
-    - docker push moshud/simple-node
-
-".travis.yml" 24L, 495C
+    - docker push moshud/simple-node:node.v2
