@@ -23,3 +23,5 @@ script:
   after_success:
     -echo "$DOCKER_PASSWORD" |  docker login -u "$DOCKER_USERNAME"  --password-stdin
     - docker push moshud/simple-node
+
+".travis.yml" 24L, 495C
