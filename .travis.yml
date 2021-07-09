@@ -7,19 +7,18 @@ services:
 
 # Pre-testing installs
 install:
-  - echo "nothing to be installed"
+  - echo "nothing needs to be installed"
 
-
-#Scripts to be run such as tests
+# Scripts to be run such as tests
 before_script:
   - echo "no tests"
 
 script:
-  -docker --version
-  -docker build -t simple-node .
-  -docker tag simple-node moshud/simple-node:node.v2
+  - docker --version # print the version for logging
+  - docker build -t simple-node .
+  - docker tag simple-node moshud/simple-node:latest
 
-  #Tasks to perform after the process is successful. 
-  after_success:
-    -echo "$DOCKER_PASSWORD" |  docker login -u "$DOCKER_USERNAME"  --password-stdin
-    - docker push moshud/simple-node:node.v2
+# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push moshud/simple-node
